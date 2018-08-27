@@ -5,6 +5,7 @@ ENV MAGENTO_VERSION 1.9.3.8
 RUN a2enmod rewrite
 
 ENV INSTALL_DIR /var/www/html
+RUN apt-get install -y git
 
 RUN cd /tmp && \
     curl https://codeload.github.com/OpenMage/magento-mirror/tar.gz/$MAGENTO_VERSION -o $MAGENTO_VERSION.tar.gz && \
