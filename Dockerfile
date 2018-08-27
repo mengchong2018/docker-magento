@@ -5,27 +5,15 @@ ENV MAGENTO_VERSION 1.9.3.8
 RUN a2enmod rewrite
 
 ENV INSTALL_DIR /var/www/html
-RUN apt-get update && apt-get install -y \
-    apt-utils \
-    sudo \
-    wget \
-    unzip \
-    cron \
-    curl \
-    libmcrypt-dev \
-    libicu-dev \
-    libxml2-dev libxslt1-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng12-dev \
-    git \
-    vim 
+RUN apt-get update 
+RUN apt-get install -y git 
+RUN git clone https://github.com/mengchong2018/magento-mirror /tmp
 
 RUN cd /tmp && \
     curl https://codeload.github.com/OpenMage/magento-mirror/tar.gz/$MAGENTO_VERSION -o $MAGENTO_VERSION.tar.gz && \
     tar xvf $MAGENTO_VERSION.tar.gz && \
     mv magento-mirror-$MAGENTO_VERSION/* magento-mirror-$MAGENTO_VERSION/.htaccess $INSTALL_DIR
-RUN git clone https://github.com/mengchong2018/magento-mirror /tmp
+
 RUN chown -R www-data:www-data $INSTALL_DIR
 
 RUN apt-get update && \
