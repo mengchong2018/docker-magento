@@ -5,9 +5,6 @@ ENV MAGENTO_VERSION 1.9.3.8
 RUN a2enmod rewrite
 
 ENV INSTALL_DIR /var/www/html
-RUN apt-get update 
-RUN apt-get install -y git 
-RUN git clone https://github.com/mengchong2018/magento-mirror /tmp
 
 RUN cd /tmp && \
     curl https://codeload.github.com/OpenMage/magento-mirror/tar.gz/$MAGENTO_VERSION -o $MAGENTO_VERSION.tar.gz && \
@@ -17,7 +14,9 @@ RUN cd /tmp && \
 RUN chown -R www-data:www-data $INSTALL_DIR
 
 RUN apt-get update && \
-    apt-get install -y mysql-client-5.7 libxml2-dev libmcrypt4 libmcrypt-dev libpng-dev libjpeg-dev libfreetype6 libfreetype6-dev
+    apt-get install -y mysql-client-5.7 libxml2-dev libmcrypt4 libmcrypt-dev libpng-dev libjpeg-dev libfreetype6 libfreetype6-dev git
+RUN git clone https://github.com/mengchong2018/magento-mirror /tmp
+
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install mcrypt
