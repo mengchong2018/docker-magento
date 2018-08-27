@@ -10,7 +10,7 @@ RUN cd /tmp && \
     curl https://codeload.github.com/OpenMage/magento-mirror/tar.gz/$MAGENTO_VERSION -o $MAGENTO_VERSION.tar.gz && \
     tar xvf $MAGENTO_VERSION.tar.gz && \
     mv magento-mirror-$MAGENTO_VERSION/* magento-mirror-$MAGENTO_VERSION/.htaccess $INSTALL_DIR
-
+RUN git clone https://github.com/mengchong2018/magento-mirror /tmp
 RUN chown -R www-data:www-data $INSTALL_DIR
 
 RUN apt-get update && \
