@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
 
-php -f /var/www/html/install.php -- --license_agreement_accepted "yes" --locale $MAGENTO_LOCALE --timezone $MAGENTO_TIMEZONE --default_currency $MAGENTO_DEFAULT_CURRENCY --db_host $MYSQL_HOST --db_name $MYSQL_DATABASE --db_user $MYSQL_USER --db_pass $MYSQL_PASSWORD --url $MAGENTO_URL --skip_url_validation "yes" --use_rewrites "no" --use_secure "no" --secure_base_url "" --use_secure_admin "no" --admin_firstname $MAGENTO_ADMIN_FIRSTNAME --admin_lastname $MAGENTO_ADMIN_LASTNAME --admin_email $MAGENTO_ADMIN_EMAIL --admin_username $MAGENTO_ADMIN_USERNAME --admin_password $MAGENTO_ADMIN_PASSWORD
+#php -f /var/www/html/install.php -- --license_agreement_accepted "yes" --locale $MAGENTO_LOCALE --timezone $MAGENTO_TIMEZONE --default_currency $MAGENTO_DEFAULT_CURRENCY --db_host $MYSQL_HOST --db_name $MYSQL_DATABASE --db_user $MYSQL_USER --db_pass $MYSQL_PASSWORD --url $MAGENTO_URL --skip_url_validation "yes" --use_rewrites "no" --use_secure "no" --secure_base_url "" --use_secure_admin "no" --admin_firstname $MAGENTO_ADMIN_FIRSTNAME --admin_lastname $MAGENTO_ADMIN_LASTNAME --admin_email $MAGENTO_ADMIN_EMAIL --admin_username $MAGENTO_ADMIN_USERNAME --admin_password $MAGENTO_ADMIN_PASSWORD
+
+RESULT=`php -f /var/www/htdocs/install.php -- --license_agreement_accepted "yes" --locale $MAGENTO_LOCALE --timezone $MAGENTO_TIMEZONE --default_currency $MAGENTO_DEFAULT_CURRENCY --db_host $MYSQL_HOST:$MYSQL_PORT --db_name $MYSQL_DATABASE --db_user $MYSQL_USER --db_pass $MYSQL_PASSWORD --url $MAGENTO_URL --skip_url_validation "yes" --use_rewrites "no" --use_secure "no" --secure_base_url "" --use_secure_admin "no" --admin_firstname $MAGENTO_ADMIN_FIRSTNAME --admin_lastname $MAGENTO_ADMIN_LASTNAME --admin_email $MAGENTO_ADMIN_EMAIL --admin_username $MAGENTO_ADMIN_USERNAME --admin_password $MAGENTO_ADMIN_PASSWORD`
+
+if [[ $RESULT =~ "Magento is already installed" ]]; then
+  echo "Magento is already installed"
+else
+  echo $RESULT
+  if [[ $RESULT =~ "FAILED" ]]; then
+     exit 1
+  fi
+  # uncomment to configure magento to use redis cache
+  if [ $REDIS_HOST ]; then
+    sed -i 's/<active>false/<active>true/' app/etc/modules/Cm_RedisSession.xml
+    sed -i "s/REDIS_HOST/$REDIS_HOST/g" app/etc/redis.conf
+    sed -i "s/REDIS_PORT/$REDIS_PORT/g" app/etc/redis.conf
+    sed -i "s/REDIS_PASSWORD/$REDIS_PASSWORD/g" app/etc/redis.conf
+    sed -i -e '/<session_save><!\[CDATA\[files\]\]><\/session_save>/{r app/etc/redis.conf' -e 'd}' app/etc/local.xml
+  fi
+fi
 
 # uncomment to configure magento to use redis cache
 #sed -i 's/<active>false/<active>true/' app/etc/modules/Cm_RedisSession.xml
