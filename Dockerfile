@@ -35,6 +35,8 @@ RUN chmod +x /usr/local/bin/install-sampledata
 RUN bash -c 'bash < <(curl -s -L https://raw.github.com/colinmollenhour/modman/master/modman-installer)'
 RUN mv ~/bin/modman /usr/local/bin
 
+RUN service apache2 restart
+
 WORKDIR $INSTALL_DIR
 
 #COPY redis.conf /var/www/htdocs/app/etc/
