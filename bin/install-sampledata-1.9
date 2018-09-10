@@ -7,7 +7,7 @@ tar xvf magento-sample-data-1.9.1.0.tgz
 cp -R magento-sample-data-1.9.1.0/media/* /var/www/html/media/
 cp -R magento-sample-data-1.9.1.0/skin/* /var/www/html/skin/
 chown -R www-data:www-data /var/www/html/media
-sed -i "$ r alipay.sql" magento-sample-data-1.9.1.0/magento_sample_data_for_1.9.1.0.sql
+sed -i "$ r alipayset.sql" magento-sample-data-1.9.1.0/magento_sample_data_for_1.9.1.0.sql
 
 if ! mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD -e "use $MYSQL_DATABASE";then
    create_db_sql="create database IF NOT EXISTS $MYSQL_DATABASE"
