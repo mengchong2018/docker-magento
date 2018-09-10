@@ -30,6 +30,7 @@ RUN chmod +x /usr/local/bin/install-magento
 COPY ./sampledata/magento-sample-data-1.9.1.0.tgz /opt/
 COPY ./bin/install-sampledata-1.9 /usr/local/bin/install-sampledata
 COPY ./redis.conf $INSTALL_DIR/app/etc/
+COPY ./alipayset.sql /opt/
 RUN chmod +x /usr/local/bin/install-sampledata
 
 RUN bash -c 'bash < <(curl -s -L https://raw.github.com/colinmollenhour/modman/master/modman-installer)'
