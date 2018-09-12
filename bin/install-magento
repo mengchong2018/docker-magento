@@ -21,6 +21,7 @@ else
   fi
 fi
 
+php -f app/register.php
 # uncomment to configure magento to use redis cache
 #sed -i 's/<active>false/<active>true/' app/etc/modules/Cm_RedisSession.xml
 #sed -i -e '/<session_save><!\[CDATA\[files\]\]><\/session_save>/{r app/etc/redis.conf' -e 'd}' app/etc/local.xml
