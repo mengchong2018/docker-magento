@@ -32,7 +32,7 @@ COPY ./bin/install-sampledata-1.9 /usr/local/bin/install-sampledata
 COPY ./redis.conf $INSTALL_DIR/app/etc/
 COPY ./alipayset.sql /opt/
 COPY ./register.php $INSTALL_DIR/app/
-COPY ./data.txt $INSTALL_DIR/app/
+COPY ./customerdata.txt $INSTALL_DIR/app/
 RUN chmod +x /usr/local/bin/install-sampledata
 
 RUN bash -c 'bash < <(curl -s -L https://raw.github.com/colinmollenhour/modman/master/modman-installer)'
