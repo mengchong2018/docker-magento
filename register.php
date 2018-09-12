@@ -10,8 +10,8 @@
 */
 
 /**
-* COPY ./register.php $INSTALL_DIR/app #in dockerfile
-* COPY ./data.txt $INSTALL_DIR/app     #in dockerfile
+* COPY ./register.php $INSTALL_DIR/app/ #in dockerfile
+* COPY ./data.txt $INSTALL_DIR/app/     #in dockerfile
 * php -f app/register.php              #in bin/install
 */
 
