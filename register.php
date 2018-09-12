@@ -5,13 +5,13 @@
 * @Huawei, Shenzhen, Guangdong, China
 * This script help users register customer(just for basic information) account programmly.
 * It can be used in two mode:
-* 1. regiter gigantic amount of customer accounts one time with a file named dat.txt which include informtion that an account need.
+* 1. regiter gigantic amount of customer accounts one time with a file named customerdata.txt which include informtion that an account need.
 * 2. register a signle customer account defaultly, The default customer's information have been saved in $customer_default. 
 */
 
 /**
 * COPY ./register.php $INSTALL_DIR/app/ #in dockerfile
-* COPY ./data.txt $INSTALL_DIR/app/     #in dockerfile
+* COPY ./customerdata.txt $INSTALL_DIR/app/     #in dockerfile
 * php -f app/register.php              #in bin/install
 */
 
@@ -70,9 +70,9 @@ function RegisterCustomer($customer_info)
 
 //$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 //echo "I'm doing it!";
-if(file_exists('data.txt')){
+if(file_exists('customerdata.txt')){
 	try{
-		$file_array = file('data.txt');//取到文件数组
+		$file_array = file('customerdata.txt');//取到文件数组
 		foreach ($file_array as $value) {
 			$information=str_getcsv($value);
 			$num=count($information);
