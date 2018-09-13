@@ -70,9 +70,9 @@ function RegisterCustomer($customer_info)
 
 //$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 //echo "I'm doing it!";
-if(file_exists('customerdata.txt')){
+if(file_exists('app/customerdata.txt')){
 	try{
-		$file_array = file('customerdata.txt');//取到文件数组
+		$file_array = file('app/customerdata.txt');//取到文件数组
 		foreach ($file_array as $value) {
 			$information=str_getcsv($value);
 			$num=count($information);
